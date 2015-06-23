@@ -1,0 +1,44 @@
+***** HSPICE -- C-2009.03-SP1 32-BIT (May 25 2009) winnt ******
+ Input File: C:\Users\Administrator\Desktop\MultiLevel\tcModel.sp
+ lic:
+ lic: FLEXlm: v8.5b
+ lic: USER:   Administrator        HOSTNAME: WIN-HBGPFB5Q4D3
+ lic: HOSTID: "002268384615 005056c00001 005056c00008" PID:      4492
+ lic: Using FLEXlm license file:
+ lic: C:\synopsys\hspice_2009-03.lic
+ lic: Checkout 1 hspice
+ lic: License/Maintenance for hspice will expire on 31-dec-2020/2007.9
+ lic: NODE LOCKED license on hostid "002268384615 005056c00001 005056c00008"
+ lic:
+ Init: hspice initialization file: C:\synopsys\Hspice_C-2009.03-SP1\hspice.ini
+ init: begin read circuit files,  cpu clock=  3.20E-02
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\behave\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\AD\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\XILINX\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\TLINE\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\TI\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\SIGNET\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\PCI\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\LIN_TECH\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\FET\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\DIO\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\COMLINE\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\BURR_BRN\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\BJT\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\behave\
+       option search   = C:\synopsys\Hspice_C-2009.03-SP1\PARTS\AD\
+       option post     =     2.00
+       option runlvl
+ init: end read circuit files,  cpu clock=  9.40E-02 memory=    150 kb
+ init: begin check errors,  cpu clock=  9.40E-02
+ init: end check errors,  cpu clock=  1.10E-01 memory=    246 kb
+ init: begin setup matrix, pivot=     0 cpu clock=  1.10E-01
+       establish matrix -- done,  cpu clock=  1.25E-01 memory=    246 kb
+       re-order matrix -- done,  cpu clock=  1.25E-01 memory=    247 kb
+ init: end setup matrix,  cpu clock=  1.25E-01 memory=    256 kb
+ output: C:tcModel.sw0
+ sweep: dc dc0    begin, #sweeps=6001 cpu clock=  1.41E-01
+ sweep: dc dc0    end,  cpu clock=  3.44E-01 memory=    256 kb
+>info:         ***** hspice job concluded
+ Init: hspice initialization file: C:\synopsys\Hspice_C-2009.03-SP1\hspice.ini
+ lic: Release hspice token(s)
