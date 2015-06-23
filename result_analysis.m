@@ -91,7 +91,7 @@ big_error = [];
 for i  = 1:900
     pop_error = [pop_error,  cw_results.valid_error{i}.pop];
     corr_error = [corr_error, cw_results.valid_error{i}.corr];
-    if ( cw_results.valid_error{i}.pop > 0.05)
+    if ( cw_results.valid_error{i}.pop > 0.04)
         big_error = [big_error, i];
     end
 end

@@ -9,7 +9,7 @@ kTwoColonyAveError = 4;
 kFindParaForNColony = 5;
 kNColonyAveError = 6;
 %% choose current job
-current_job = 6;
+current_job = 2;
 %% panel and shading parameters
 %  multi_level = [4, 3, 2, 1];
 %  ratios = [0.4, 0.3, 0.2, 0.1];
