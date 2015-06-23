@@ -285,7 +285,7 @@ if (cnt_non_zero == 1 || cnt_non_zero == 2)
     return;
 end
 
-mid_point = (levels(1) + levels(end))/2;
+%mid_point = (levels(1) + levels(end))/2;
 new_counter = zeros(size(counter));
 % find the start
 index_start = 0;
@@ -304,6 +304,8 @@ for i = size(counter, 1): -1 : 1
         break;
     end
 end
+
+mid_point = (levels(index_start) + levels(index_end))/2;
 
 % loop between start and end to assign to new_counter
 % new counter has value only at index_start and index_end

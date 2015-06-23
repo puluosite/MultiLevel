@@ -7,9 +7,10 @@ kAnalyzeCWModel = 2;
 kAnalyzeNCModel = 3;
 kRuntimeComp = 4;
 
-current_job = 3;
+current_job = 2;
 
 multi_level = [4,  3, 2];
+multi_level = [4,  3.5,3,2.5, 2]; % new 5 lvls test
 n_bypass = 3;
 parameters.IS = 1e-6;
 parameters.N = 1.5;
@@ -90,7 +91,7 @@ big_error = [];
 for i  = 1:900
     pop_error = [pop_error,  cw_results.valid_error{i}.pop];
     corr_error = [corr_error, cw_results.valid_error{i}.corr];
-    if ( cw_results.valid_error{i}.pop > 0.25)
+    if ( cw_results.valid_error{i}.pop > 0.05)
         big_error = [big_error, i];
     end
 end
