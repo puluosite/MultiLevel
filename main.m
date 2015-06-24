@@ -9,7 +9,7 @@ kTwoColonyAveError = 4;
 kFindParaForNColony = 5;
 kNColonyAveError = 6;
 %% choose current job
-current_job = 2;
+current_job = 6;
 %% panel and shading parameters
 %  multi_level = [4, 3, 2, 1];
 %  ratios = [0.4, 0.3, 0.2, 0.1];
@@ -157,7 +157,7 @@ elseif (current_job == kTwoColonyAveError)
     n_bypass = 2;
     par = [0.75, 0.22, 0.06];
     iter_cnt = 0;
-    for i  = 1: 2
+    for i  = 2: 3
         m = all_m_n(i,1);
         n = all_m_n(i,2);
         for j = 1: n_ratios
@@ -246,6 +246,9 @@ elseif( current_job == kFindParaForNColony )
     end
     save('ncfmin.mat','parameter');
     diary off;
+    
+    
+    
 
     
 elseif ( current_job == kNColonyAveError )
@@ -260,7 +263,7 @@ elseif ( current_job == kNColonyAveError )
     par{3} =    [0.373905323353778,0.169171209886551,0.0607890111040313;
             0.400000000000000,0.200000000000000,0.0728989980195029];
     iter_cnt = 0;
-    for i  = 3: n_m_n
+    for i  = 1: 1
         m = all_m_n(i,1);
         n = all_m_n(i,2);
         for j = 1: n_ratios
