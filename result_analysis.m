@@ -6,8 +6,9 @@ kPlot3Models = 1;
 kAnalyzeCWModel = 2;
 kAnalyzeNCModel = 3;
 kRuntimeComp = 4;
+kHyperConfigComp = 5;
 
-current_job = 2;
+current_job = 5;
 
 multi_level = [4,  3, 2];
 multi_level = [4,  3.5,3,2.5, 2]; % new 5 lvls test
@@ -256,9 +257,10 @@ stem(ave_sort_corr);
 %% Task 4. Runtime Compare
 elseif (current_job == kRuntimeComp)
     m = 30;
-    n = 2;
-    n_bypass = 3;
+    n = 4;
+    n_bypass = 2;
     ratio = [0.7, 0.2, 0.1];
+    ratio = [0.3, 0.2, 0.1, 0.2, 0.2];
     shading_pattern = cloudGen(m, n, multi_level, ratio);
     
     [v_gt, i_gt] = gtModel(shading_pattern, multi_level, n_bypass, parameters);
@@ -268,9 +270,141 @@ elseif (current_job == kRuntimeComp)
     
     par = [0.413146973579157,0.172728122364881,0.0387096979008728;
             0.400000000000000,0.200000000000000,0.142240765841547];
+    if(n_bypass == 3)
+        [v_nc, i_nc] = ncModel(shading_pattern, multi_level, n_bypass, par, parameters);
+        p_nc = v_nc.*i_nc;
+    elseif(n_bypass ==2)
+        [v_nc, i_nc] = tcModel(shading_pattern, multi_level, n_bypass, par, parameters);
+        p_nc = v_nc.*i_nc;
+    else
+           assert(0);
+    end
+    
+elseif(current_job == kHyperConfigComp) 
+    % tcModel and ncModel together
+    cw_results = load('tcModel_error.mat');
+    pop_error = [];
+    corr_error = [];
+    big_error = [];
+    small_corr = [];
 
-    [v_nc, i_nc] = ncModel(shading_pattern, multi_level, n_bypass, par, parameters);
-    p_nc = v_nc.*i_nc;
+    for i  = 1:600
+        pop_error = [pop_error,  cw_results.valid_error{i}.pop];
+        corr_error = [corr_error, cw_results.valid_error{i}.corr];
+        if ( cw_results.valid_error{i}.pop > 0.1)
+            big_error = [big_error, i];
+        end
+        if ( cw_results.valid_error{i}.corr < 0.9)
+            small_corr = [small_corr, i];
+        end
+    end
+    
+    cw_results2 = load('ncModel_error.mat');
+    for i  = 1:300
+        pop_error = [pop_error,  cw_results2.valid_error{i}.pop];
+        corr_error = [corr_error, cw_results2.valid_error{i}.corr];
+        if ( cw_results2.valid_error{i}.pop > 0.1)
+            big_error = [big_error, i+600];
+        end
+        if ( cw_results.valid_error{i}.corr < 0.9)
+            small_corr = [small_corr, i];
+        end
+    end
+    
+    ave_pop_error = mean(pop_error);
+    ave_corr_error = 1- mean(corr_error);
+    figure(1)
+    figa = subplot(1,2,1);
+    hist(pop_error,50);
+    title('(a)');
+    hold on;
+    figb = subplot(1,2,2);
+    hist(1-corr_error,50);
+    title('(b)');
+    hold on;
+
+    figure(2)
+    figa = subplot(2,3,1);
+    hist(pop_error(1:300),50);
+    hold on;
+    figb = subplot(2,3,2);
+    hist(pop_error(301:600),50);
+    hold on;
+    figc = subplot(2,3,3);
+    hist(pop_error(601:900),50);
+    hold on;
+    hold on;
+    figa = subplot(2,3,4);
+    hist(1-corr_error(1:300),50);
+    hold on;
+    figb = subplot(2,3,5);
+    hist(1-corr_error(301:600),50);
+    hold on;
+    figc = subplot(2,3,6);
+    hist(1-corr_error(601:900),50);
+    hold on;
+    
+    sort_big_error = sort(big_error);
+    
+    if (size(big_error, 1) > 0)
+        par{1} = [0.413146973579157,0.172728122364881,0.0387096979008728;
+                0.400000000000000,0.200000000000000,0.142240765841547];
+
+        par{2} = [0.75, 0.22, 0.06]
+               
+        
+    for i = 1: 1
+        error_index = big_error(i);
+        concrete_par = [];
+        v_gt = [];
+        i_gt = [];
+        p_gt = [];
+        v_cw2 = [];
+        i_cw2 = [];
+        p_cw2= [];
+        v_nc = [];
+        i_nc = [];
+        p_nc= [];
+        if (error_index <= 600)
+            n_bypass =2;
+            concrete_par = par{2};
+            shading_pattern = cw_results.valid_error{error_index}.pattern;
+            m = size(shading_pattern, 1);
+            n = size(shading_pattern, 2);
+            [v_gt, i_gt] = cwModel(shading_pattern, multi_level, n_bypass, parameters);
+            p_gt = v_gt.*i_gt;
+            [v_cw2, i_cw2] = cw2Model(shading_pattern, multi_level, n_bypass, parameters);
+            p_cw2 = v_cw2.*i_cw2;
+            [v_nc, i_nc] = tcModel(shading_pattern, multi_level, n_bypass, concrete_par, parameters);
+            p_nc = v_nc.*i_nc;
+        else
+            n_bypass = 3;
+            concrete_par = par{1};
+            shading_pattern = cw_results2.valid_error{error_index-600}.pattern;
+            m = size(shading_pattern, 1);
+            n = size(shading_pattern, 2);
+            [v_gt, i_gt] = cwModel(shading_pattern, multi_level, n_bypass, parameters);
+            p_gt = v_gt.*i_gt;
+            [v_cw2, i_cw2] = cw2Model(shading_pattern, multi_level, n_bypass, parameters);
+            p_cw2 = v_cw2.*i_cw2;
+            [v_nc, i_nc] = ncModel(shading_pattern, multi_level, n_bypass, concrete_par, parameters);
+            p_nc = v_nc.*i_nc;
+
+        end
+
+
+        figure(3)
+        plot(v_gt, p_gt, 'r');
+        hold on;
+        plot(v_cw2, p_cw2, 'b');
+        hold on;
+        plot(v_nc, p_nc, 'g');
+        hold on;
+    end
+    
+    
+end
+    
     
 else
 tc_results = load('wcModel_error_n_2.mat');

@@ -1,12 +1,12 @@
 ** Super Cell 1 Max Current
 
- I1 0 1_1 DC 6.000000
+ I1 0 1_1 DC 5.000000
  D1 1_1 0 diode1
  D1_inv 0 1 diode2
- Rsh_1 1_1 0 4.200933e+04
- Rs_1 1_1 1 6.637475e-02
-.MODEL diode1 D IS=5.601245e-07 N=2.520560e+01
-.MODEL diode2 D IS=5.601245e-06 N=8.401867e-01
+ Rsh_1 1_1 0 6.784853e+04
+ Rs_1 1_1 1 1.072007e-01
+.MODEL diode1 D IS=9.046470e-07 N=4.070912e+01
+.MODEL diode2 D IS=9.046470e-06 N=1.356971e+00
 
 
 ** Super Cell 2 Mid Current
@@ -14,10 +14,10 @@
  I2 1 2_1 DC 5.000000
  D2 2_1 1 diode3
  D2_inv 1 2 diode4
- Rsh_2 2_1 1 4.717531e+04
- Rs_2 2_1 2 7.453699e-02
-.MODEL diode3 D IS=6.290041e-07 N=2.830518e+01
-.MODEL diode4 D IS=6.290041e-06 N=9.435061e-01
+ Rsh_2 2_1 1 2.133611e+04
+ Rs_2 2_1 2 3.371106e-02
+.MODEL diode3 D IS=2.844815e-07 N=1.280167e+01
+.MODEL diode4 D IS=2.844815e-06 N=4.267223e-01
 
 
 ** Super Cell 3 Min Current
